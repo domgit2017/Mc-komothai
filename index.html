@@ -74,7 +74,7 @@
       content="Muiruri wa Komothai - Komothai's Finest MC"
     />
 
-    <!-- Local Business / Entertainment Business Structured Data -->
+    <!-- Entertainment Business Structured Data -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -148,7 +148,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
 
-    <!-- Main Stylesheet -->
+    <!-- Stylesheet -->
     <link rel="stylesheet" href="styles/general.css" />
   </head>
 
@@ -173,46 +173,98 @@
 
     <!-- Hero Section -->
     <section class="hero container" id="about">
-      <div>
-        <span class="badge"
-          ><i class="fa-solid fa-microphone-lines"></i> Professional Master of
-          Ceremonies</span
-        >
+      <div class="hero-content">
+        <span class="badge">
+          <i class="fa-solid fa-microphone-lines"></i>
+          Professional Master of Ceremonies
+        </span>
+
         <h1>Muiruri wa Komothai</h1>
+
         <p>
           Bringing unmatched energy, corporate elegance, and high-octane
           entertainment to your events. Known across Kenya as
           <strong>Komothai's Finest</strong>.
         </p>
+
         <div class="hero-buttons">
-          <a href="tel:0721353818" class="btn btn-primary"
-            ><i class="fa-solid fa-phone"></i> Call 0721 353 818</a
-          >
-          <a href="#contact" class="btn btn-secondary"
-            ><i class="fa-solid fa-envelope"></i> Book via Email</a
-          >
+          <a href="tel:+254721353818" class="btn btn-primary">
+            <i class="fa-solid fa-phone"></i>
+            Call 0721 353 818
+          </a>
+
+          <a href="#contact" class="btn btn-secondary form-trigger">
+            <i class="fa-solid fa-envelope"></i>
+            Book via Email
+          </a>
         </div>
       </div>
-      <div class="hero-image-wrap">
-        <div class="hero-slider">
-          <img src="images/mc001.jpg" class="slide active" alt="MC Muiruri" />
-          <img src="images/bride.jpg" class="slide" alt="Wedding Event" />
-          <img src="images/sifuna.jpg" class="slide" alt="Wedding Event" />
-          <img
-            src="images/screens.jpg"
-            class="slide"
-            alt="Wedding coverage Event"
-          />
-          <img src="images/ruracio.jpg" class="slide" alt="Corporate Event" />
-          <img src="images/mc3.jpg" class="slide" alt="Stage Performance" />
-          <img src="images/tents.jpg" class="slide" alt="Burial Event" />
-          <img src="images/staff.jpg" class="slide" alt="Recording Event" />
 
-          <button class="slider-btn prev" onclick="changeSlide(-1)">
+      <div class="hero-image-wrap">
+        <div
+          class="hero-slider"
+          aria-label="Komothai's Finest event highlights"
+        >
+          <img
+            src="images/mc001.jpg"
+            class="slide active"
+            alt="Muiruri wa Komothai hosting an event"
+            width="1200"
+            height="1500"
+            fetchpriority="high"
+          />
+
+          <img
+            src="images/mc4.jpg"
+            class="slide"
+            alt="Muiruri wa Komothai working with a DJ sound setup"
+            width="1200"
+            height="1500"
+            loading="lazy"
+          />
+
+          <img
+            src="images/mc3.jpg"
+            class="slide"
+            alt="Muiruri wa Komothai entertaining guests on stage"
+            width="1200"
+            height="1500"
+            loading="lazy"
+          />
+
+          <img
+            src="images/mc6.jpg"
+            class="slide"
+            alt="Muiruri wa Komothai hosting an outdoor event"
+            width="1200"
+            height="1500"
+            loading="lazy"
+          />
+
+          <img
+            src="images/ruracio.jpg"
+            class="slide"
+            alt="Komothai's Finest at a traditional wedding event"
+            width="1600"
+            height="900"
+            loading="lazy"
+          />
+
+          <button
+            class="slider-btn prev"
+            type="button"
+            onclick="changeSlide(-1)"
+            aria-label="Previous image"
+          >
             <i class="fa-solid fa-chevron-left"></i>
           </button>
 
-          <button class="slider-btn next" onclick="changeSlide(1)">
+          <button
+            class="slider-btn next"
+            type="button"
+            onclick="changeSlide(1)"
+            aria-label="Next image"
+          >
             <i class="fa-solid fa-chevron-right"></i>
           </button>
         </div>
@@ -285,37 +337,240 @@
     <section class="section container" id="gallery">
       <div class="section-title">
         <h2>Performance Gallery</h2>
-        <p>Click any photo or video to view in full resolution.</p>
+        <p>
+          A selection of real events, performances and moments hosted by
+          Komothai's Finest.
+        </p>
       </div>
-      <div class="gallery-grid">
-        <!-- Video Items (YouTube Embeds) -->
+
+      <div class="gallery-grid" id="gallerySlider">
+        <!-- Video -->
         <div
-          class="gallery-item video-gallery-item"
+          class="gallery-item gallery-video"
           onclick="
             window.open('https://www.youtube.com/@KomothaiFinest', '_blank')
           "
+          role="button"
+          tabindex="0"
+          aria-label="Watch Komothai's Finest videos on YouTube"
         >
-          <img src="images/mc5.jpg" alt="Komothai Finest YouTube Channel" />
+          <img
+            src="images/komothais all.jpg"
+            alt="Komothai's Finest Entertainment"
+            loading="lazy"
+            width="1080"
+            height="1080"
+          />
 
-          <div class="video-play-icon">▶</div>
+          <div class="gallery-overlay video-overlay">
+            <span class="video-play-icon">
+              <i class="fa-solid fa-play"></i>
+            </span>
 
-          <p class="video-label">Watch Videos</p>
+            <strong>Watch Videos</strong>
+            <small>Visit our YouTube channel</small>
+          </div>
         </div>
-        <!-- Image Items -->
+
+        <!-- MC Performance -->
         <div
-          class="gallery-item"
-          onclick="openLightbox('image', 'images/ruracio.jpg')"
+          class="gallery-item gallery-tall"
+          onclick="openLightbox('image', 'images/mc2.jpg')"
+          tabindex="0"
         >
-          <img src="images/ruracio.jpg" alt="Stage Entertainment" />
+          <img
+            src="images/mc2.jpg"
+            alt="Muiruri wa Komothai hosting a traditional event"
+            loading="lazy"
+          />
+
           <div class="gallery-overlay">
             <i class="fa-solid fa-magnifying-glass-plus"></i>
           </div>
         </div>
+
+        <!-- Wedding -->
+        <div
+          class="gallery-item"
+          onclick="openLightbox('image', 'images/bride.jpg')"
+          tabindex="0"
+        >
+          <img
+            src="images/bride.jpg"
+            alt="Muiruri wa Komothai hosting a wedding event"
+            loading="lazy"
+          />
+
+          <div class="gallery-overlay">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+          </div>
+        </div>
+
+        <!-- Traditional Event -->
+        <div
+          class="gallery-item"
+          onclick="openLightbox('image', 'images/ruracio.jpg')"
+          tabindex="0"
+        >
+          <img
+            src="images/ruracio.jpg"
+            alt="Traditional Ruracio event hosted by Komothai's Finest"
+            loading="lazy"
+          />
+
+          <div class="gallery-overlay">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+          </div>
+        </div>
+
+        <!-- Reception -->
         <div
           class="gallery-item"
           onclick="openLightbox('image', 'images/uhiki.jpg')"
+          tabindex="0"
         >
-          <img src="images/uhiki.jpg" alt="Wedding Reception" />
+          <img
+            src="images/uhiki.jpg"
+            alt="Event reception hosted by Komothai's Finest"
+            loading="lazy"
+          />
+
+          <div class="gallery-overlay">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+          </div>
+        </div>
+
+        <!-- Public Event -->
+        <div
+          class="gallery-item"
+          onclick="openLightbox('image', 'images/sifuna.jpg')"
+          tabindex="0"
+        >
+          <img
+            src="images/sifuna.jpg"
+            alt="Komothai's Finest at a public event"
+            loading="lazy"
+          />
+
+          <div class="gallery-overlay">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+          </div>
+        </div>
+
+        <!-- Guest Appearance -->
+        <div
+          class="gallery-item"
+          onclick="openLightbox('image', 'images/kalonzo.jpg')"
+          tabindex="0"
+        >
+          <img
+            src="images/kalonzo.jpg"
+            alt="Muiruri wa Komothai with a guest at an event"
+            loading="lazy"
+          />
+
+          <div class="gallery-overlay">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+          </div>
+        </div>
+
+        <!-- MC -->
+        <div
+          class="gallery-item gallery-tall"
+          onclick="openLightbox('image', 'images/mc5.jpg')"
+          tabindex="0"
+        >
+          <img
+            src="images/mc5.jpg"
+            alt="Muiruri wa Komothai hosting an event"
+            loading="lazy"
+          />
+
+          <div class="gallery-overlay">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+          </div>
+        </div>
+
+        <!-- Stage -->
+        <div
+          class="gallery-item gallery-tall"
+          onclick="openLightbox('image', 'images/mc3.jpg')"
+          tabindex="0"
+        >
+          <img
+            src="images/mc3.jpg"
+            alt="Live stage entertainment by Komothai's Finest"
+            loading="lazy"
+          />
+
+          <div class="gallery-overlay">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+          </div>
+        </div>
+
+        <!-- Outdoor Event -->
+        <div
+          class="gallery-item gallery-tall"
+          onclick="openLightbox('image', 'images/mc6.jpg')"
+          tabindex="0"
+        >
+          <img
+            src="images/mc6.jpg"
+            alt="Muiruri wa Komothai hosting an outdoor event"
+            loading="lazy"
+          />
+
+          <div class="gallery-overlay">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+          </div>
+        </div>
+
+        <!-- Event Production -->
+        <div
+          class="gallery-item"
+          onclick="openLightbox('image', 'images/screens.jpg')"
+          tabindex="0"
+        >
+          <img
+            src="images/screens.jpg"
+            alt="Event screen and production setup"
+            loading="lazy"
+          />
+
+          <div class="gallery-overlay">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+          </div>
+        </div>
+
+        <!-- Outdoor Setup -->
+        <div
+          class="gallery-item gallery-wide"
+          onclick="openLightbox('image', 'images/tents.jpg')"
+          tabindex="0"
+        >
+          <img
+            src="images/tents.jpg"
+            alt="Large outdoor event setup in Kenya"
+            loading="lazy"
+          />
+
+          <div class="gallery-overlay">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+          </div>
+        </div>
+
+        <!-- Event Staff -->
+        <div
+          class="gallery-item gallery-tall"
+          onclick="openLightbox('image', 'images/staff.jpg')"
+          tabindex="0"
+        >
+          <img
+            src="images/staff.jpg"
+            alt="Event staff and outdoor event setup"
+            loading="lazy"
+          />
+
           <div class="gallery-overlay">
             <i class="fa-solid fa-magnifying-glass-plus"></i>
           </div>
@@ -323,19 +578,21 @@
       </div>
     </section>
 
-    <!-- Contact & Direct Compose Section -->
+    <!-- Contact Section -->
     <section class="section container" id="contact">
       <div class="section-title">
         <h2>Book Komothai's Finest</h2>
-        <!--<p>Fill out the form below to directly compose an email from any device or client.</p>-->
       </div>
+
       <div class="contact-container">
         <div>
           <h3>Get in Touch Directly</h3>
+
           <p style="color: var(--text-muted); margin-bottom: 1.5rem">
             Ready to make your event unforgettable? Reach out via phone or
             email.
           </p>
+
           <p style="margin-bottom: 0.8rem">
             <i
               class="fa-solid fa-phone"
@@ -344,13 +601,18 @@
             <strong>Phone:</strong>
             <a href="tel:0721353818" style="color: inherit">0721 353 818</a>
           </p>
+
           <p style="margin-bottom: 0.8rem">
             <i
               class="fa-solid fa-envelope"
               style="color: var(--primary); width: 25px"
             ></i>
-            <strong>Email:</strong> komothaifinest@gmail.com
+            <strong>Email:</strong>
+            <a href="#contact" class="email-trigger"
+              >komothaifinest@gmail.com</a
+            >
           </p>
+
           <p style="margin-bottom: 0.8rem">
             <i
               class="fa-solid fa-location-dot"
@@ -362,65 +624,67 @@
         </div>
 
         <!-- Booking Form -->
-        <form id="bookingForm">
-          <div class="form-group">
-            <label for="clientName">Your Name</label>
-            <input
-              type="text"
-              id="clientName"
-              name="Client Name"
-              required
-              placeholder="e.g. Jane Doe"
-            />
-          </div>
+        <div id="bookingFormWrapper" class="booking-form-wrapper">
+          <form id="bookingForm">
+            <div class="form-group">
+              <label for="clientName">Your Name</label>
+              <input
+                type="text"
+                id="clientName"
+                name="Client Name"
+                required
+                placeholder="e.g. Jane Doe"
+              />
+            </div>
 
-          <div class="form-group">
-            <label for="telephone">Contacts</label>
-            <input type="tel" id="telephone" name="phone" required />
-          </div>
+            <div class="form-group">
+              <label for="telephone">Contacts</label>
+              <input type="tel" id="telephone" name="phone" required />
+            </div>
 
-          <div class="form-group">
-            <label for="eventType">Event Type</label>
-            <select id="eventType" name="Event Type" required>
-              <option value="">Select Event Type</option>
-              <option value="Wedding / Ruracio">Wedding / Ruracio</option>
-              <option value="Burial / Cremation">Burial / Cremation</option>
-              <option value="Corporate Function">Corporate Function</option>
-              <option value="Concert / Festival">Concert / Festival</option>
-              <option value="Birthday / Private Party">
-                Birthday / Private Party
-              </option>
-            </select>
-          </div>
+            <div class="form-group">
+              <label for="eventType">Event Type</label>
+              <select id="eventType" name="Event Type" required>
+                <option value="">Select Event Type</option>
+                <option value="Wedding / Ruracio">Wedding / Ruracio</option>
+                <option value="Burial / Cremation">Burial / Cremation</option>
+                <option value="Corporate Function">Corporate Function</option>
+                <option value="Concert / Festival">Concert / Festival</option>
+                <option value="Birthday / Private Party">
+                  Birthday / Private Party
+                </option>
+              </select>
+            </div>
 
-          <div class="form-group">
-            <label for="eventDate">Event Date</label>
-            <input type="date" id="eventDate" name="Event Date" required />
-          </div>
+            <div class="form-group">
+              <label for="eventDate">Event Date</label>
+              <input type="date" id="eventDate" name="Event Date" required />
+            </div>
 
-          <div class="form-group">
-            <label for="details">Additional Event Details</label>
-            <textarea
-              id="details"
-              name="Event Details"
-              rows="4"
-              placeholder="Location, expected guests, special requests..."
-              required
-            ></textarea>
-          </div>
+            <div class="form-group">
+              <label for="details">Additional Event Details</label>
+              <textarea
+                id="details"
+                name="Event Details"
+                rows="4"
+                placeholder="Location, expected guests, special requests..."
+                required
+              ></textarea>
+            </div>
 
-          <button
-            type="submit"
-            id="sendBtn"
-            class="btn btn-primary"
-            style="width: 100%; justify-content: center"
-          >
-            <i class="fa-solid fa-paper-plane"></i>
-            <span>Send Booking Request</span>
-          </button>
+            <button
+              type="submit"
+              id="sendBtn"
+              class="btn btn-primary"
+              style="width: 100%; justify-content: center"
+            >
+              <i class="fa-solid fa-paper-plane"></i>
+              <span>Send Booking Request</span>
+            </button>
 
-          <div id="formMessage" style="margin-top: 15px"></div>
-        </form>
+            <div id="formMessage"></div>
+          </form>
+        </div>
       </div>
     </section>
 
@@ -464,7 +728,8 @@
     </div>
 
     <div class="footer">
-      <p>© 2026 domwebsolutions. All rights reserved.</p>
+      <p>© 2026 domwebsolutions.online</p>
+      <p>All rights reserved.</p>
     </div>
 
     <!-- Lightbox Modal -->
