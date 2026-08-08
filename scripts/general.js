@@ -1,45 +1,58 @@
-// Theme toggle
-const themeToggleBtn = document.getElementById('themeToggle');
-const htmlElement = document.documentElement;
+/* Theme */
+const html = document.documentElement;
+const themeToggle = document.getElementById('themeToggle');
 
-function updateThemeButton() {
-  const currentTheme = htmlElement.getAttribute('data-theme');
+function updateTheme() {
+  const light = html.getAttribute('data-theme') === 'light';
 
-  themeToggleBtn.innerHTML =
-    currentTheme === 'light'
-      ? '<i class="fa-solid fa-moon"></i> <span>Dark Mode</span>'
-      : '<i class="fa-solid fa-sun"></i> <span>Light Mode</span>';
+  if (themeToggle) {
+    themeToggle.innerHTML = light
+      ? '<i class="fa-solid fa-moon"></i> Dark Mode'
+      : '<i class="fa-solid fa-sun"></i> Light Mode';
+  }
 }
 
-updateThemeButton();
+const savedTheme = localStorage.getItem('theme');
 
-themeToggleBtn.addEventListener('click', () => {
-  const currentTheme = htmlElement.getAttribute('data-theme');
-  htmlElement.setAttribute(
-    'data-theme',
-    currentTheme === 'dark' ? 'light' : 'dark',
-  );
-  updateThemeButton();
+if (savedTheme) {
+  html.setAttribute('data-theme', savedTheme);
+}
+
+updateTheme();
+
+themeToggle?.addEventListener('click', () => {
+  const current = html.getAttribute('data-theme');
+  const next = current === 'light' ? 'dark' : 'light';
+
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  updateTheme();
 });
 
-// Light box
+/* Lightbox */
 const modal = document.getElementById('lightboxModal');
 const modalBody = document.getElementById('modalBody');
 
 function openLightbox(type, src) {
+  if (!modal || !modalBody) return;
+
   modalBody.innerHTML = '';
 
   if (type === 'image') {
     const img = document.createElement('img');
     img.src = src;
+    img.alt = 'Gallery image';
     modalBody.appendChild(img);
-  } else if (type === 'video') {
+  }
+
+  if (type === 'video') {
     const iframe = document.createElement('iframe');
-    iframe.src = src + '?autoplay=1';
+
+    iframe.src = `${src}?autoplay=1`;
     iframe.height = '450';
-    iframe.style.border = 'none';
     iframe.allow = 'autoplay; encrypted-media';
     iframe.allowFullscreen = true;
+
     modalBody.appendChild(iframe);
   }
 
@@ -47,32 +60,67 @@ function openLightbox(type, src) {
 }
 
 function closeLightbox() {
+  if (!modal || !modalBody) return;
+
   modal.classList.remove('active');
   modalBody.innerHTML = '';
 }
 
-modal.addEventListener('click', (e) => {
-  if (e.target === modal) closeLightbox();
+modal?.addEventListener('click', (event) => {
+  if (event.target === modal) {
+    closeLightbox();
+  }
 });
 
-// Formsubmit ajax
-const bookingForm = document.getElementById('bookingForm');
+/* Booking */
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('bookingForm');
+  const wrapper = document.getElementById('bookingFormWrapper');
+  const contact = document.getElementById('contact');
+  const triggers = document.querySelectorAll('.form-trigger, .email-trigger');
 
-if (bookingForm) {
-  bookingForm.addEventListener('submit', async function (e) {
-    e.preventDefault();
+  if (!form || !wrapper) return;
 
-    const form = this;
+  wrapper.classList.remove('active');
+
+  triggers.forEach((trigger) => {
+    trigger.addEventListener('click', (event) => {
+      event.preventDefault();
+
+      wrapper.classList.add('active');
+
+      setTimeout(() => {
+        wrapper.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+        });
+
+        document.getElementById('clientName')?.focus();
+      }, 100);
+    });
+  });
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
     const button = document.getElementById('sendBtn');
     const message = document.getElementById('formMessage');
 
+    if (!button || !message) return;
+
+    const originalButton = button.innerHTML;
+
     button.disabled = true;
+
     button.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+
+    message.innerHTML = '';
 
     try {
       const formData = new FormData(form);
 
       formData.append('_subject', "New Booking Request - Komothai's Finest");
+
       formData.append('_captcha', 'false');
 
       const response = await fetch(
@@ -93,76 +141,66 @@ if (bookingForm) {
       form.reset();
 
       message.innerHTML = `
-          <div id="successPopup" style="
-            background:#10b981;
-            color:#fff;
-            padding:15px;
-            border-radius:8px;
-            text-align:center;
-            font-weight:600;
-            opacity:1;
-            transition:opacity .5s ease;">
-            ✅ Thank you for contacting Komothai's Finest.<br>
-            Your booking inquiry has been sent successfully.<br>
+        <div class="success-message">
+          <i class="fa-solid fa-circle-check"></i>
+          <strong>Booking request sent successfully!</strong>
+          <span>
+            Thank you for contacting Komothai's Finest.
             We will get back to you shortly.
-          </div>
-        `;
+          </span>
+        </div>
+      `;
 
       setTimeout(() => {
-        const popup = document.getElementById('successPopup');
+        message.innerHTML = '';
+        wrapper.classList.remove('active');
 
-        if (popup) {
-          popup.style.opacity = '0';
-
-          setTimeout(() => {
-            message.innerHTML = '';
-          }, 500);
-        }
-      }, 3000);
+        contact?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+        });
+      }, 5000);
     } catch (error) {
       message.innerHTML = `
-          <div style="
-            background:#ef4444;
-            color:#fff;
-            padding:15px;
-            border-radius:8px;
-            text-align:center;
-            font-weight:600;">
-            ❌ Unable to send your inquiry.<br>
+        <div class="error-message">
+          <i class="fa-solid fa-circle-exclamation"></i>
+          <strong>Unable to send your inquiry.</strong>
+          <span>
             Please call or WhatsApp 0721 353 818.
-          </div>
-        `;
+          </span>
+        </div>
+      `;
     }
 
     button.disabled = false;
-    button.innerHTML =
-      '<i class="fa-solid fa-paper-plane"></i> <span>Send Booking Request</span>';
+    button.innerHTML = originalButton;
   });
-}
+});
 
+/* Hero slider */
 const slides = document.querySelectorAll('.hero-slider .slide');
 let currentSlide = 0;
 
 function showSlide(index) {
-  slides.forEach((slide) => slide.classList.remove('active'));
-  slides[index].classList.add('active');
+  slides.forEach((slide) => {
+    slide.classList.remove('active');
+  });
+
+  slides[index]?.classList.add('active');
 }
 
 function changeSlide(direction) {
-  currentSlide += direction;
+  if (!slides.length) return;
 
-  if (currentSlide >= slides.length) {
-    currentSlide = 0;
-  }
-
-  if (currentSlide < 0) {
-    currentSlide = slides.length - 1;
-  }
+  currentSlide = (currentSlide + direction + slides.length) % slides.length;
 
   showSlide(currentSlide);
 }
 
-// Auto-slide every 5 seconds
-setInterval(() => {
-  changeSlide(1);
-}, 5000);
+if (slides.length) {
+  showSlide(currentSlide);
+
+  setInterval(() => {
+    changeSlide(1);
+  }, 5000);
+}
